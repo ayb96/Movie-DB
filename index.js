@@ -19,6 +19,25 @@ app.get('/test', (req, res) => {
    
   })
 
+  app.get('/hello/:tagid', (req, res) => {
+
+    parameter="Hello, " + req.params.tagid;
+    res.send({status:200, 
+          message: parameter})
+
+})
+
+
+app.get('/search', (req, res) => {
+  let search = req.query.q;
+  console.log(search)
+  if(search == ""){
+      res.send({status:500, error:true, message:"you have to provide a search"});
+  }
+  res.send({status:200, message:"ok", data:search});
+})
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
