@@ -124,6 +124,29 @@ app.get('/movies/read/id/:text?', (req, res) => {
   }
 })
 
+//step 8
+
+
+app.get('/movies/add', (req, res) => {
+  let text = req.query.title
+  let text1 = req.query.year
+  let text2 = req.query.rating
+  if(text == "" || text1 == "" || text1.length != 4){
+    res.send({status:403, error:true, message:'you cannot create a movie without providing a title and a year'})
+  }else if(text2 == ""){
+    movies.push({status:200, title:text , year: text1, rating: 4})
+    res.send(movies)
+  }
+  else{
+    movies.push({status:200, title:text , year: text1, rating: text2})
+    res.send(movies)
+  }
+  
+    
+
+  
+})
+
 
 
 
