@@ -111,6 +111,19 @@ sortable.sort(function(a, b) {
   res.send({status:200, data:sortable});
 })
 
+//step7
+
+app.get('/movies/read/id/:text?', (req, res) => {
+  let text = req.params.text;
+  console.log(text)
+  if(text<=movies.length){
+    res.send({status:200, data:movies[text-1].title})
+
+  }else{
+    res.send({status:404, error:true, message:'the movie <ID> does not exist'})
+  }
+})
+
 
 
 
