@@ -141,11 +141,24 @@ app.get('/movies/add', (req, res) => {
     movies.push({status:200, title:text , year: text1, rating: text2})
     res.send(movies)
   }
-  
-    
-
-  
 })
+
+
+//step 9
+
+app.get('/movies/delete/:text?', (req, res) => {
+  let test = []
+  let text = req.params.text;
+  if(text>0 && text<=4){
+    test.push(movies.splice(text-1,1))
+    console.log(movies)
+    res.send(test)
+  
+  }else{
+    res.send({status:404, error:true, message:'the movie <ID> does not exist'})
+   }
+})
+
 
 
 
