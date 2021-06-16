@@ -160,6 +160,57 @@ app.get('/movies/delete/:text?', (req, res) => {
 })
 
 
+//step 10
+
+
+
+app.get('/movies/update/:text?', (req, res) => {
+  let text = req.params.text;
+  let title = req.query.title;
+  let rating = req.query.rating;
+  let year = req.query.year;
+
+  if(title != "" && rating == "" && year == ""){
+    movies[text-1].title = title
+    res.send({message:movies})
+  }else if(rating != "" && title == "" && year == ""){
+    movies[text-1].rating = rating
+    res.send({message:movies})
+  }else if(year !="" && rating == "" && title == ""){
+    movies[text-1].year = year
+    res.send({message:movies})
+  }
+
+
+  else if(title != "" && rating != "" && year == ""){
+    movies[text-1].title = title
+    movies[text-1].rating = rating
+    res.send({message:movies})
+  }else if(rating != "" && title == "" && year != ""){
+    movies[text-1].rating = rating
+    movies[text-1].year = year
+    res.send({message:movies})
+  }else if(year !="" && rating == "" && title != ""){
+    movies[text-1].year = year
+    movies[text-1].title = title
+    res.send({message:movies})
+  }
+  
+  
+  
+  
+  
+  else if(title !="" && rating !="" && year !=""){
+    movies[text-1].title = title
+    movies[text-1].rating = rating
+    movies[text-1].year = year
+    res.send({message:movies})
+  }
+  
+  
+
+})
+
 
 
 
