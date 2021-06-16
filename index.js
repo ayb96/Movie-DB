@@ -127,7 +127,7 @@ app.get('/movies/read/id/:text?', (req, res) => {
 //step 8
 
 
-app.get('/movies/add', (req, res) => {
+app.put('/movies/add', (req, res) => {
   let text = req.query.title
   let text1 = req.query.year
   let text2 = req.query.rating
@@ -146,7 +146,7 @@ app.get('/movies/add', (req, res) => {
 
 //step 9
 
-app.get('/movies/delete/:text?', (req, res) => {
+app.delete('/movies/delete/:text?', (req, res) => {
   let test = []
   let text = req.params.text;
   if(text>0 && text<=4){
@@ -164,7 +164,7 @@ app.get('/movies/delete/:text?', (req, res) => {
 
 
 
-app.get('/movies/update/:text?', (req, res) => {
+app.patch('/movies/update/:text?', (req, res) => {
   let text = req.params.text;
   let title = req.query.title;
   let rating = req.query.rating;
@@ -217,3 +217,7 @@ app.get('/movies/update/:text?', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+
+
+//step 11
