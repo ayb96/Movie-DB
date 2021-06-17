@@ -45,14 +45,14 @@ app.get('/test', (req, res) => {
 })
 
 
-// app.get('/search', (req, res) => {
-//   let search = req.query.q;
-//   console.log(search)
-//   if(search == ""){
-//       res.send({status:500, error:true, message:"you have to provide a search"});
-//   }
-//   res.send({status:200, message:"ok", data:search});
-// })
+app.get('/search', (req, res) => {
+  let search = req.query.q;
+  console.log(search)
+  if(search == ""){
+      res.send({status:500, error:true, message:"you have to provide a search"});
+  }
+  res.send({status:200, message:"ok", data:search});
+})
 
 
 
@@ -123,7 +123,7 @@ app.get('/movies/read/id/:text?', (req, res) => {
 
 
 app.listen(3000, () =>
-  console.log('Example app listening on port 3000!'),
+  console.log('Example ap listening on port 3000!'),
 );
 
 

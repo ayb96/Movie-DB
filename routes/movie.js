@@ -18,6 +18,23 @@ const movies = [
 
 
 router
+.route('/by-title')
+.get( async (request, response) => {
+  const byTitle = await moviesModel.find({}).sort({"title":1});
+
+  try {
+    response.send(byTitle);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+
+
+
+
+
+router
 .route('/add')
 .post( async (req, res) => {
   
@@ -37,96 +54,43 @@ router
 
 
 
-router
-.route('/by-title')
-.get( function(req,res){
-   
-  movies.find({}).sort({title: 1}).exec(function(err, moviess) {
-    res.send({
-    status:200,
-    message: moviess
-    })
-})
-})
-
-
-
-
-
-
-
-
-
-
-
-// router
-// .route('/delete/:text?')
-// .delete( (req, res) => {
-//   let test = []
-//   let text = req.params.text;
-//   if(text>0 && text<=4){
-//     test.push(movies.splice(text-1,1))
-//     console.log(movies)
-//     res.send(test)
-  
-//   }else{
-//     res.send({status:404, error:true, message:'the movie <ID> does not exist'})
-//    }
-// })
-
-
-
 
 
 
 router
-.route('/update/:text?')
-.put( (req, res) => {
-  let text = req.params.text;
-  let title = req.query.title;
-  let rating = req.query.rating;
-  let year = req.query.year;
+.route('/delete/:text?')
+.delete( async (request, response) => {
+  try {
+    const del = await moviesModel.findByIdAndDelete(request.params.text);
 
-  if(title != "" && rating == "" && year == ""){
-    movies[text-1].title = title
-    res.send({message:movies})
-  }else if(rating != "" && title == "" && year == ""){
-    movies[text-1].rating = rating
-    res.send({message:movies})
-  }else if(year !="" && rating == "" && title == ""){
-    movies[text-1].year = year
-    res.send({message:movies})
+    if (!del) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
   }
+});
 
 
-  else if(title != "" && rating != "" && year == ""){
-    movies[text-1].title = title
-    movies[text-1].rating = rating
-    res.send({message:movies})
-  }else if(rating != "" && title == "" && year != ""){
-    movies[text-1].rating = rating
-    movies[text-1].year = year
-    res.send({message:movies})
-  }else if(year !="" && rating == "" && title != ""){
-    movies[text-1].year = year
-    movies[text-1].title = title
-    res.send({message:movies})
-  }
-  
-  
-  
-  
-  
-  else if(title !="" && rating !="" && year !=""){
-    movies[text-1].title = title
-    movies[text-1].rating = rating
-    movies[text-1].year = year
-    res.send({message:movies})
-  }
-  
+
+
+
+  router
+  .route('/update/:id')
+  .put( async (req, res) => {
+    try {
+      await moviesModel.findByIdAndUpdate(req.params.id, {title:req.query.title}, 
+        {year:req.query.year}, {rating:req.query.rating});
+      await moviesModel.save();
+      res.send(up);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
   
 
-})
+
+
+
 
 
 
